@@ -1,10 +1,10 @@
 #include "Player.h"
-
+#include "Game.h"
 /*
 Player constructor
 Give in the start position for the player and the pointers to the game objects
 */
-Player::Player(int startX, int startY, Graphics* inGfx, Keyboard* inKbd, Mouse* inMouse)
+Player::Player(int startX, int startY, Graphics* inGfx, Keyboard* inKbd, Mouse* inMouse, Game* pInMyGame)
 {
 	x = startX;
 	y = startY;
@@ -17,6 +17,11 @@ Player::Player(int startX, int startY, Graphics* inGfx, Keyboard* inKbd, Mouse* 
 	hostileBullets[0] = NULL;
 	nHostileBullets = 0;
 	ShooterInits(inGfx);
+	pMyGame = pInMyGame;
+}
+Player::~Player()
+{
+	pMyGame->InvokeGameOver();
 }
 void Player::AddHostileBullets(Bullet* newBullet)
 {
@@ -56,7 +61,10 @@ void Player::Update()
 			delete hostileBullets[i];
 			healthPoints--;
 			if (healthPoints <= 0)
+			{
 				delete this;
+				return;
+			}
 		}
 		i++;
 	}

@@ -33,7 +33,7 @@ public:
 
 	//Make array index of enemy null, replace with dynamic lists later
 	void RemoveEnemy(Enemy* toRemove);
-
+	void InvokeGameOver();
 private:
 	void ComposeFrame();
 	void UpdateModel();
@@ -48,6 +48,7 @@ private:
 	/*  User Variables              */
 	/********************************/
 	static constexpr int nEnemies = 4;
-	Player player;
+	Player* player;
 	Enemy* enemies[nEnemies];
+	bool gameIsOver;
 };

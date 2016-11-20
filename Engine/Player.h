@@ -2,15 +2,18 @@
 #include "Includes.h"
 #include "Bullet.h"
 #include "Shooter.h"
+class Game;
 
 class Player: public Shooter
 {
 public:
-	Player(int startX, int startY, Graphics* inGfx, Keyboard* inKbd, Mouse* inMouse);
+	Player(int startX, int startY, Graphics* inGfx, Keyboard* inKbd, Mouse* inMouse, Game* pInMyGame);
+	Player::~Player();
+	
 	const void Draw();
 
 	void Update();
-
+	
 	void KeyboardActions();
 	void MouseActions();
 
@@ -38,4 +41,8 @@ private:
 	//Newly added, temp bullet system
 	int nHostileBullets;
 	Bullet** hostileBullets;
+
+
+	//pointer to game
+	Game* pMyGame;
 };

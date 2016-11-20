@@ -24,28 +24,40 @@
 Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
-	gfx( wnd ),
-	player(100,100,&gfx,&wnd.kbd,&wnd.mouse)
+	gfx( wnd )
+	
 {
+	player = new Player(100, 100, &gfx, &wnd.kbd, &wnd.mouse, this);
 	int i;
 	for (i = 0; i < nEnemies; i++)
 	{
 		enemies[i] = new Enemy(100 + 100 * i, 500, &gfx,this);
-		enemies[i]->SetTarget(&player);
+		enemies[i]->SetTarget(player);
 	}
+	gameIsOver = false;
 }
 
 void Game::Go()
 {
-	gfx.BeginFrame();	
-	UpdateModel();
-	ComposeFrame();
+	gfx.BeginFrame();
+	if (gameIsOver == false)
+	{
+		UpdateModel();
+	}
+		ComposeFrame();
 	gfx.EndFrame();
 }
-
+void Game::InvokeGameOver()
+{
+	gameIsOver = true;
+	player = NULL;
+}
 void Game::UpdateModel()
 {
-	player.Update();
+	
+	player->Update();
+	if (!player)
+		return;
 	int i;
 	for (i = 0; i < nEnemies; i++)
 	{
@@ -56,8 +68,13 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {
-	gfx.DrawCircle(100, 100, 10, Colors::White);
-	player.Draw();
+	if (!player)
+	{
+		gfx.DrawCircle(400, 300, 60, Colors::White);
+		return;
+		
+	}
+	player->Draw();
 	int i;
 	for (i = 0; i < nEnemies; i++)
 	{
