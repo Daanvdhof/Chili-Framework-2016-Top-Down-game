@@ -12,7 +12,7 @@ public:
 	void SetTarget(Player* newTarget);
 	void Update();
 	~Enemy();
-
+	void Shoot(float angle);
 private:
 	Bullet** bulletList;
 	int nBullets;
