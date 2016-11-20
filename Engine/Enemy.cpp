@@ -34,6 +34,11 @@ void Enemy::SetTarget(Player* newTarget)
 {
 	target = newTarget;
 }
+void Enemy::Shoot(float angle)
+{
+	Shooter::Shoot(angle);
+	target->AddHostileBullets(GetLastBullet());
+}
 void Enemy::Update()
 {
 	if (target)

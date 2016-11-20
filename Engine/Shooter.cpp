@@ -14,7 +14,10 @@ void Shooter::Shoot(float angle)
 		canShoot = false;
 	
 }
-
+Bullet* Shooter::GetLastBullet()
+{
+	return bulletList[nBullets - 1];
+}
 void Shooter::DeleteBullet(Bullet* toDelete)
 {
 	int i;

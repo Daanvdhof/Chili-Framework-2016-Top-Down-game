@@ -12,6 +12,7 @@ public:
 	void DrawBullets();
 	void TestDraw();
 	Bullet** GetBullets();
+	Bullet* GetLastBullet();
 protected:
 	int x;
 	int y;
